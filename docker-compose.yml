@@ -1,0 +1,74 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:6
+    container_name: mongodb
+    ports:
+      - "27017:27017"    # pour accès depuis l'hôte (développement)
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - backend
+    restart: unless-stopped
+
+  redis:
+    image: redis:alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - backend
+    restart: unless-stopped
+
+  backend-python:
+    build: ./backend-python
+    container_name: price-service
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_DB=0
+      - SERPAPI_KEY=${SERPAPI_KEY}
+    depends_on:
+      - redis
+    networks:
+      - backend
+    restart: unless-stopped
+    # Pas de ports exposés en production, mais pour le dev on garde
+    ports:
+      - "8000:8000"
+
+  backend-node:
+    build: ./backend-node
+    container_name: gateway-service
+    environment:
+      - PORT=5000
+      - MONGO_URI=mongodb://mongodb:27017/price_tracker
+      - JWT_SECRET=${JWT_SECRET}
+      - PYTHON_SERVICE_URL=http://backend-python:8000
+    depends_on:
+      - mongodb
+      - backend-python
+    networks:
+      - backend
+    ports:
+      - "5000:5000"
+    restart: unless-stopped
+
+  frontend-angular:
+    build: ./frontend-angular
+    container_name: frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend-node
+    networks:
+      - backend
+    restart: unless-stopped
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  mongo_data:

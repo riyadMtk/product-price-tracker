@@ -1,0 +1,81 @@
+
+Action					Commande
+
+Lancer Redis (conteneur)		docker run -d -p 6379:6379 --name redis-test redis:alpine (redis-test: container | redis: image)
+
+Vérifier que Redis tourne		docker ps
+
+Activer l’environnement Python		.\venv\Scripts\activate
+
+Désactiver l'environnement		deactivate
+
+Lancer le serveur FastAPI		uvicorn app.main:app --reload --port 8000
+
+Tester l’endpoint prix			http://localhost:8000/prices?product=iphone
+
+Arrêter Redis				docker stop redis-test > docker rm redis-test
+
+- Pour relancer plus tard, refais simplement docker run 
+
+
+=======================================================================================================
+
+pour tester pyhton:
+
+> 7el l'App docker
+> f cmd dyl VS Code: cd C:\Users\dell\Desktop\product-price-tracker (la racine) > docker version (pour tester que docker marrche bien) > docker-compose up --build (--build kat'exiger la reconstruction des images) => had la commande derha ila changéti chi hj f l code sinn bla matzid --build
+> apres tester b l endpoint /prices:  http://localhost:8000/prices?product=iphone
+> w hta b l endpoint /history: http://localhost:8000/history?product=iphone&source=Amazon
+> pour arreter : ctrl+c > docker-compose down
+
+========================================================================================================
+
+pour node.js:
+
+
+dans VS Code
+
+> cd backend-node > npm init -y (Initialisez un projet npm (acceptez les valeurs par défaut)) > npm install express mongoose jsonwebtoken bcryptjs dotenv cors axios (installation des packages) 
+> npm run dev
+
+
+
+========================================================================================================
+docker mongodb:
+
+> commande: docker run -d -p 27017:27017 --name mongodb-test mongo:6 (verifie b docker ps)
+> Pour te connecter avec mongosh: tape simplement docker exec -it mongodb-test mongosh dans un nouveau terminal – il se connectera automatiquement à localhost:27017. (mongodb-test: hada name dyal container, diro houwa wla container ID)
+> Arrêter MongoDB : docker stop mongodb-test
+> Le relancer : docker start mongodb-test
+> Supprimer définitivement : docker rm mongodb-test (après arrêt)
+
+==========================================================================================================
+
+test complet:
+
+VS Code > docker-compose up --build
+
+pour mongodb : docker exec -it mongodb mongosh
+
+
+pour arreter: ctrl+c => docker-compose down (ila bghiti tmseh les donnees li f la base zid -v f tali)
+
+pour redemarer : docker-compose up (zid --build ila bdelti  l code)
+
+
+
+casier judiciaire: 41165420284
+
+
+"serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "frontend-angular:build:production"
+            },
+            "development": {
+              "buildTarget": "frontend-angular:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },

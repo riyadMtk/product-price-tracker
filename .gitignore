@@ -1,0 +1,42 @@
+# Environnements virtuels Python
+venv/
+env/
+ENV/
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Fichiers de variables d'environnement
+.env
+*.env
+.env.local
+.env.*.local
+
+# Logs
+logs/
+*.log
+
+# Fichiers de configuration IDE / OS
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Fichiers de build / dist (si tu en as)
+dist/
+build/
+
+# Fichiers Python compilés
+__pycache__/
+*.py[cod]
+*.so
+.Python
+
+# Docker (fichiers temporaires)
+.dockerignore
