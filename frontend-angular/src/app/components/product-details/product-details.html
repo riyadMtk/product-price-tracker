@@ -1,0 +1,47 @@
+<div class="container mt-4">
+  <h2 class="fw-bold mb-4 text-gold"><i class="bi bi-box-seam me-2"></i>Détails du produit : <span class="text-light">{{ productName }}</span></h2>
+
+  <div *ngIf="loading" class="text-center my-5">
+    <div class="spinner-border text-gold" role="status">
+      <span class="visually-hidden">Chargement...</span>
+    </div>
+    <p class="mt-2 text-light">Chargement des offres...</p>
+  </div>
+
+  <div *ngIf="!loading && prices.length === 0" class="alert" style="background: #2a2a2a; color: #f0f0f0; border-color: #d4af37;">
+    <i class="bi bi-info-circle me-2 text-gold"></i>Aucun prix trouvé pour ce produit.
+  </div>
+
+  <div *ngIf="prices.length > 0" class="table-responsive">
+    <table class="table table-hover align-middle shadow-lg rounded-3 overflow-hidden" style="background: #1e1e1e; color: #f0f0f0;">
+      <thead style="background: #2c2c2c; color: #d4af37;">
+        <tr>
+          <th>Source</th>
+          <th>Prix (EUR)</th>
+          <th>Unité</th>
+          <th>Prix original</th>
+          <th class="text-center">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let price of prices" style="border-bottom: 1px solid #333;">
+          <td><span class="fw-semibold">{{ price.source }}</span></td>
+          <td><span class="badge fs-6" style="background: #d4af37; color: #000;">{{ price.price_eur }} €</span></td>
+          <td>{{ price.unit }}</td>
+          <td>{{ price.original_price }} {{ price.original_currency }}</td>
+          <td class="text-center">
+            <button class="btn btn-sm" style="background: transparent; border: 1px solid #d4af37; color: #d4af37;" (click)="addToWatchlist(price)" title="Ajouter à la watchlist">
+              <i class="bi bi-heart"></i> Ajouter
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mt-4">
+    <button class="btn btn-sm" style="background: transparent; border: 1px solid #d4af37; color: #d4af37;" routerLink="/watchlist">
+      <i class="bi bi-arrow-left me-2"></i>Retour à la watchlist
+    </button>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+<div class="container mt-4">
+  <h2 class="fw-bold mb-4 text-gold"><i class="bi bi-heart-fill me-2"></i>Ma Watchlist</h2>
+
+  <div *ngIf="loading" class="text-center my-5">
+    <div class="spinner-border text-gold" role="status">
+      <span class="visually-hidden">Chargement...</span>
+    </div>
+    <p class="mt-2 text-light">Chargement de votre watchlist...</p>
+  </div>
+
+  <div *ngIf="!loading && items.length === 0" class="alert" style="background: #2a2a2a; color: #f0f0f0; border-color: #d4af37;">
+    <i class="bi bi-info-circle me-2 text-gold"></i>Votre watchlist est vide.
+  </div>
+
+  <div class="row g-3">
+    <div class="col-12 col-md-6 col-lg-4" *ngFor="let item of items">
+      <div class="card h-100 shadow-lg border-0 rounded-4" style="background: #1e1e1e; color: #f0f0f0;">
+        <div class="card-body">
+          <h5 class="card-title fw-bold text-gold">{{ item.productName }}</h5>
+          <p class="card-text mb-1">
+            <span *ngIf="item.source" class="badge me-2" style="background: #2c2c2c; color: #d4af37;">{{ item.source }}</span>
+            <span *ngIf="item.price" class="badge" style="background: #d4af37; color: #000;">{{ item.price }} {{ item.currency || 'EUR' }}</span>
+          </p>
+          <p class="text-muted small mb-2" style="color: #aaa !important;">
+            <i class="bi bi-calendar3 me-1"></i>{{ item.createdAt | date:'medium' }}
+          </p>
+          <div class="d-flex justify-content-between">
+            <button class="btn btn-sm" style="background: transparent; border: 1px solid #d4af37; color: #d4af37;" [routerLink]="['/watchlist-item', item._id!]">
+              <i class="bi bi-eye"></i> Détails
+            </button>
+            <button class="btn btn-sm" style="background: transparent; border: 1px solid #b22222; color: #b22222;" (click)="remove(item._id!)">
+              <i class="bi bi-trash"></i> Supprimer
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

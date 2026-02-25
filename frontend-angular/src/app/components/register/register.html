@@ -1,0 +1,39 @@
+<div class="row justify-content-center mt-5">
+  <div class="col-md-6 col-lg-5">
+    <div class="card border-0 rounded-4 shadow-lg" style="background: #121212;">
+      <div class="card-body p-5">
+        <h2 class="text-center mb-4 fw-bold text-gold">
+          <i class="bi bi-person-plus-fill me-2"></i>Inscription
+        </h2>
+        <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+          <div class="mb-3">
+            <label for="email" class="form-label text-light fw-semibold">Email</label>
+            <div class="input-group">
+              <span class="input-group-text bg-dark border-secondary text-light"><i class="bi bi-envelope"></i></span>
+              <input type="email" class="form-control bg-dark text-light border-secondary" id="email" name="email" [(ngModel)]="user.email" required email #email="ngModel" placeholder="exemple@email.com">
+            </div>
+            <div *ngIf="email.invalid && email.touched" class="text-warning small mt-1">
+              <i class="bi bi-exclamation-circle"></i> Email valide requis
+            </div>
+          </div>
+          <div class="mb-4">
+            <label for="password" class="form-label text-light fw-semibold">Mot de passe</label>
+            <div class="input-group">
+              <span class="input-group-text bg-dark border-secondary text-light"><i class="bi bi-key"></i></span>
+              <input type="password" class="form-control bg-dark text-light border-secondary" id="password" name="password" [(ngModel)]="user.password" required #password="ngModel" placeholder="••••••••">
+            </div>
+            <div *ngIf="password.invalid && password.touched" class="text-warning small mt-1">
+              <i class="bi bi-exclamation-circle"></i> Mot de passe requis
+            </div>
+          </div>
+          <button type="submit" class="btn w-100 py-2 fw-semibold" style="background: #d4af37; color: #000; border: none;" [disabled]="registerForm.invalid">
+            <i class="bi bi-check-circle me-2"></i>S'inscrire
+          </button>
+          <p class="mt-4 text-center mb-0 text-light">
+            Déjà un compte ? <a routerLink="/login" class="text-gold text-decoration-none fw-semibold">Se connecter</a>
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
